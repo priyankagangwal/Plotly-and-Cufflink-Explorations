@@ -1,0 +1,248 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# # Plotly and Cufflink Explorations
+
+# ## Installation and setup
+
+# In[1]:
+
+
+get_ipython().system('pip install plotly')
+get_ipython().system('pip install cufflinks')
+
+
+# In[2]:
+
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+get_ipython().run_line_magic('matplotlib', 'inline')
+
+
+# In[3]:
+
+
+import seaborn as sns
+
+
+# In[4]:
+
+
+from plotly.offline import iplot
+import plotly as py
+
+
+# In[5]:
+
+
+import cufflinks as cf
+
+
+# In[6]:
+
+
+py.__version__
+
+
+# In[7]:
+
+
+df = pd.DataFrame()
+
+
+# In[8]:
+
+
+py.offline.init_notebook_mode(connected=True)
+
+
+# In[9]:
+
+
+cf.go_offline()
+
+
+# ## Line Plot
+
+# In[10]:
+
+
+df = pd.DataFrame(np.random.randn(100, 3), columns=['A', 'B', 'C'])
+df.head()
+
+
+# In[11]:
+
+
+df = df.cumsum()
+
+
+# In[12]:
+
+
+df.head()
+
+
+# In[13]:
+
+
+df.shape
+
+
+# In[14]:
+
+
+df.iplot()
+
+
+# In[15]:
+
+
+df.plot()
+
+
+# ## Scatter Plot
+
+# In[16]:
+
+
+df.head()
+
+
+# In[17]:
+
+
+df.iplot(x = 'A', y = 'B', mode = 'markers', size = 25, title='Scatter Plot', xTitle='X', yTitle='Y')
+
+
+# ## Bar Plot
+
+# In[18]:
+
+
+titanic = sns.load_dataset('titanic')
+
+
+# In[19]:
+
+
+titanic.head()
+
+
+# In[20]:
+
+
+titanic.iplot(kind = 'bar', x = 'sex', y = 'survived', title = 'Titanic')
+
+
+# In[21]:
+
+
+titanic['sex'].value_counts()
+
+
+# In[22]:
+
+
+df.iplot(kind = 'bar', barmode='stack', bargap=0.5)
+
+
+# In[23]:
+
+
+df.iplot(kind = 'barh', barmode='stack', bargap=0.5)
+
+
+# ## Bar plot and area plot
+
+# In[24]:
+
+
+df.iplot(kind = 'box')
+
+
+# In[25]:
+
+
+df.iplot(kind = 'area', fill = True)
+
+
+# ## 3D Plot
+
+# In[26]:
+
+
+df.iplot(kind = 'surface')
+
+
+# In[27]:
+
+
+df.iplot(kind = 'surface', colorscale='rdylbu')
+
+
+# In[28]:
+
+
+cf.datagen.sinwave(10, 0.25).iplot(kind = 'surface')
+
+
+# ## Spread Plot and Hist Plot
+
+# In[29]:
+
+
+df.iplot(kind = 'spread')
+
+
+# In[30]:
+
+
+df.iplot(kind = 'hist', bins = 25, barmode = 'overlay', bargap = 0.5)
+
+
+# ## Bubble Plot and Heatmap
+
+# In[31]:
+
+
+bb = cf.datagen.bubble3d(5,4, mode='stocks')
+
+
+# In[32]:
+
+
+bb.head()
+
+
+# In[33]:
+
+
+bb.iplot(kind = 'bubble3d', x = 'x', y= 'y', z = 'z', size = 'size')
+
+
+# In[34]:
+
+
+df.corr()
+
+
+# In[35]:
+
+
+df.corr().iplot(kind = 'heatmap', colorscale='spectral')
+
+
+# In[36]:
+
+
+cf.datagen.heatmap(20, 20).iplot(kind = 'heatmap', colorscale='spectral')
+
+
+# In[37]:
+
+
+pip install notebook-as-pdf
+
